@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, Post, Body, Put, Delete } from '@nestjs/common';
 
 @Controller('brands')
 export class BrandsController {
@@ -20,5 +20,26 @@ export class BrandsController {
   @Get()
   getFilterBrands(@Query('limit') limit = 100, @Query('offset') offset = 0) {
     return `limit ${limit} offset${offset}`;
+  }
+
+  @Post()
+  create(@Body() payload: any) {
+    return {
+      message: 'action create',
+      payload,
+    };
+  }
+
+  @Put(':id')
+  update(@Param('id') id: number, @Body() payload: any) {
+    return {
+      id,
+      payload,
+    };
+  }
+
+  @Delete(':id')
+  destroy(@Param('id') id: number) {
+    return id;
   }
 }
